@@ -20,15 +20,40 @@ void Window::handleEvents(bool &run){
     }
 }
 
-void Window::drawPlanet(long long x, long long y){
+void Window::drawPlanet(double x, double y){
     rect.x = x;
     rect.y = y;
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(renderer, &rect);
 }
 
-void Planet::move(long long* pxarr[30], long long* pyarr[30], int len){
+void Planet::move(double* pxarr[30], double* pyarr[30], int* pmarr[30], int len){
+    double c_acc;
+    double ang;
+    xa = 0;
+    ya = 0;
     for(int i = 0; i < len; i++){
-        
+        if(*pxarr[i] != x){
+            ang = atan2(*pyarr[i]-y, *pxarr[i]-x);
+            c_acc = *pmarr[i]/(pow(*pyarr[i]-y, 2) + pow(*pxarr[i]-x, 2));
+            xa += c_acc * cos(ang);
+            ya += c_acc * sin(ang);
+            if(sqrt(pow(*pyarr[i]-y, 2) + pow(*pxarr[i]-x, 2))< 10){
+                xv *= -1;
+                yv *= -1;
+            }
+        }
     }
+    xv += xa*dt;
+    yv += ya*dt;
+    if(x < 0 || x > W){
+        xv *= -1;
+    }
+    if(y < 0 || y > H){
+        yv *= -1;
+    }
+    
+    x += xv*dt;
+    y += yv*dt;
+
 }

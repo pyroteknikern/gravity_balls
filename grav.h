@@ -4,16 +4,20 @@
 #include<SDL2/SDL.h>
 
 class Planet{
+    float dt = 0.001;
     public:
-    long long x;
-    long long y;
-    long long xv;
-    long long yv;
-    long long xa;
-    long long ya;
+    double x;
+    double y;
+    double xv;
+    double yv;
+    double xa;
+    double ya;
+    int H = 480;
+    int W = 640;;
     int mass;
     int radius;
-    void move(long long*[30], long long*[30], int);
+    void test();
+    void move(double*[30], double*[30], int*[30], int);
 };
 
 
@@ -25,7 +29,7 @@ class Window{
     SDL_Rect rect;
     void init();
     void handleEvents(bool&);
-    void drawPlanet(long long, long long);
+    void drawPlanet(double, double);
 };
 
 #endif
