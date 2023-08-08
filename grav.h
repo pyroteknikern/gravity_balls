@@ -13,7 +13,7 @@ class Planet{
     double xa;
     double ya;
     int H = 480;
-    int W = 640;;
+    int W = 640;
     int mass;
     int radius;
     void test();
@@ -23,6 +23,8 @@ class Planet{
 
 class Window{
     public:
+    int H = 480;
+    int W = 640;
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Event event;

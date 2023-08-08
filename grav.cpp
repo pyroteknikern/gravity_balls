@@ -30,18 +30,19 @@ void Window::drawPlanet(double x, double y){
 void Planet::move(double* pxarr[30], double* pyarr[30], int* pmarr[30], int len){
     double c_acc;
     double ang;
+    double dist_squared;
     xa = 0;
     ya = 0;
     for(int i = 0; i < len; i++){
         if(*pxarr[i] != x){
+            c_acc = 0;
             ang = atan2(*pyarr[i]-y, *pxarr[i]-x);
-            c_acc = *pmarr[i]/(pow(*pyarr[i]-y, 2) + pow(*pxarr[i]-x, 2));
+            dist_squared = pow(*pyarr[i]-y, 2) + pow(*pxarr[i]-x, 2);
+            if(dist_squared > 10){
+                c_acc = *pmarr[i]/dist_squared;
+            }
             xa += c_acc * cos(ang);
             ya += c_acc * sin(ang);
-            if(sqrt(pow(*pyarr[i]-y, 2) + pow(*pxarr[i]-x, 2))< 10){
-                xv *= -1;
-                yv *= -1;
-            }
         }
     }
     xv += xa*dt;
